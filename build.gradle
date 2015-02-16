@@ -1,0 +1,50 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'jetty'
+
+sourceCompatibility = 1.8
+version = '0.0'
+
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'sfbu - Lazy API for dumping media to sf', 'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile 'org.apache.avro:avro:1.7.7'
+	compile 'com.google.code.gson:gson:2.2.4'
+	compile ('org.apache.hadoop:hadoop-core:1.2.1')
+	{
+		exclude group: 'com.sun.jersey'
+		exclude group: 'org.mortbay.jetty'
+	}
+	compile 'com.mpatric:mp3agic:0.8.3'
+	jettyversion='9.2.1.v20140609'
+	jerseyversion='2.15'
+	compile "org.glassfish.jersey.core:jersey-server:$jerseyversion"
+	compile "org.glassfish.jersey.core:jersey-client:$jerseyversion"
+	compile "org.glassfish.jersey.containers:jersey-container-servlet:$jerseyversion"
+	compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.4.0"
+	compile "org.eclipse.jetty:jetty-server:$jettyversion"
+	compile "org.eclipse.jetty:jetty-servlet:$jettyversion"
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+    }
+}
+  
